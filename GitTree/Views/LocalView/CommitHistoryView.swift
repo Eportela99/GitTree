@@ -28,6 +28,8 @@ struct CommitHistoryView: View {
             } else {
                 ScrollView {
                     LazyVStack(spacing: 0) {
+                        // Top padding so ref badges on the first commit don't crowd the tab bar
+                        Color.clear.frame(height: 6)
                         ForEach(vm.commits) { commit in
                             CommitRow(
                                 commit: commit,
@@ -100,10 +102,10 @@ struct CommitRow: View {
                 colWidth: graphColWidth,
                 height: rowHeight
             )
-            .frame(width: graphWidth, height: rowHeight)
+            .frame(width: graphWidth, height: effectiveHeight)
 
             // Commit info
-            VStack(alignment: .leading, spacing: 3) {
+            VStack(alignment: .leading, spacing: 4) {
                 // Refs (branches / tags)
                 if !commit.refs.filter({ !$0.isEmpty }).isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -112,6 +114,7 @@ struct CommitRow: View {
                                 RefBadge(name: ref)
                             }
                         }
+                        .padding(.top, 2)
                     }
                 }
 
@@ -147,7 +150,8 @@ struct CommitRow: View {
             }
             .padding(.leading, 10)
             .padding(.trailing, 12)
-            .frame(height: rowHeight)
+            .padding(.vertical, 6)
+            .frame(minHeight: rowHeight, alignment: .center)
 
             Spacer()
         }
@@ -166,6 +170,14 @@ struct CommitRow: View {
         )
         .overlay(Divider().opacity(0.08), alignment: .bottom)
         .contentShape(Rectangle())
+    }
+
+    private var hasRefs: Bool {
+        !commit.refs.filter { !$0.isEmpty }.isEmpty
+    }
+
+    private var effectiveHeight: CGFloat {
+        hasRefs ? rowHeight + 18 : rowHeight
     }
 
     private var graphWidth: CGFloat {

@@ -37,16 +37,18 @@ class GitHubService: ObservableObject {
 
     func getCurrentUser() async throws -> GitHubUser {
         let out = try await runner.gh(["api", "user", "--jq",
-            "[.login, .name // \"\", .email // \"\", (.public_repos | tostring), (.followers | tostring), (.following | tostring), .bio // \"\"] | join(\"|\")"])
+            "[.login, .name // \"\", .email // \"\", (.public_repos | tostring), (.followers | tostring), (.following | tostring), .bio // \"\", .avatar_url // \"\"] | join(\"|\")"])
         let parts = out.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: "|")
+        let avatarURL = parts[safe: 7].flatMap { $0.isEmpty ? nil : $0 }
         return GitHubUser(
             login: parts[safe: 0] ?? "",
-            name: parts[safe: 1],
-            email: parts[safe: 2],
+            name: parts[safe: 1].flatMap { $0.isEmpty ? nil : $0 },
+            email: parts[safe: 2].flatMap { $0.isEmpty ? nil : $0 },
             publicRepos: Int(parts[safe: 3] ?? "0") ?? 0,
             followers: Int(parts[safe: 4] ?? "0") ?? 0,
             following: Int(parts[safe: 5] ?? "0") ?? 0,
-            bio: parts[safe: 6]
+            bio: parts[safe: 6].flatMap { $0.isEmpty ? nil : $0 },
+            avatarURL: avatarURL
         )
     }
 

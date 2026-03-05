@@ -174,14 +174,24 @@ struct GitHubSidebar: View {
             // User Profile
             if let user = vm.gitHubUser {
                 VStack(spacing: 10) {
-                    ZStack {
-                        Circle()
-                            .fill(Color(hex: "#BF5AF2").opacity(0.15))
-                            .frame(width: 56, height: 56)
-                        Text(String(user.login.prefix(2)).uppercased())
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(Color(hex: "#BF5AF2"))
+                    // Avatar: real photo or GitHub-style fallback
+                    Group {
+                        if let urlStr = user.avatarURL, let url = URL(string: urlStr) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image.resizable().scaledToFill()
+                                default:
+                                    GitHubAvatarFallback(login: user.login)
+                                }
+                            }
+                        } else {
+                            GitHubAvatarFallback(login: user.login)
+                        }
                     }
+                    .frame(width: 58, height: 58)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color(hex: "#BF5AF2").opacity(0.4), lineWidth: 2))
 
                     VStack(spacing: 3) {
                         Text("@\(user.login)")
@@ -194,8 +204,9 @@ struct GitHubSidebar: View {
                         }
                     }
 
+                    // Use actual loaded repos count — more accurate than API public_repos field
                     HStack(spacing: 14) {
-                        UserStat(count: user.publicRepos, label: "Repos")
+                        UserStat(count: vm.gitHubRepos.isEmpty ? user.publicRepos : vm.gitHubRepos.count, label: "Repos")
                         UserStat(count: user.followers, label: "Followers")
                         UserStat(count: user.following, label: "Following")
                     }
@@ -262,6 +273,36 @@ struct GitHubSidebar: View {
         }
         .background(Color(hex: "#161B22"))
         .overlay(Divider().opacity(0.2), alignment: .trailing)
+    }
+}
+
+// MARK: - GitHub Avatar Fallback (GitHub-branded icon when no photo)
+struct GitHubAvatarFallback: View {
+    let login: String
+
+    var body: some View {
+        ZStack {
+            // Dark background matching GitHub's profile color
+            Color(hex: "#1C2128")
+            // GitHub mark: use a person silhouette inside a circle, styled like GitHub
+            VStack(spacing: 2) {
+                // Head
+                Circle()
+                    .fill(Color(hex: "#8B949E"))
+                    .frame(width: 18, height: 18)
+                // Body / torso arc
+                Path { p in
+                    p.addArc(
+                        center: CGPoint(x: 29, y: 52),
+                        radius: 16,
+                        startAngle: .degrees(180),
+                        endAngle: .degrees(0),
+                        clockwise: false
+                    )
+                }
+                .fill(Color(hex: "#8B949E"))
+            }
+        }
     }
 }
 
