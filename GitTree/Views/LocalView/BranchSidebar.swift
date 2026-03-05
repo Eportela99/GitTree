@@ -18,8 +18,18 @@ struct BranchSidebar: View {
         return vm.remoteBranches.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
     }
 
+    private var isDetached: Bool {
+        vm.currentRepo?.currentBranch.isEmpty == true ||
+        vm.currentRepo?.currentBranch == "HEAD"
+    }
+
     var body: some View {
         VStack(spacing: 0) {
+            // Detached HEAD banner — shown prominently when in detached state
+            if isDetached {
+                DetachedHEADBanner(showNewBranchSheet: $showNewBranchSheet)
+            }
+
             // Header
             HStack(spacing: 6) {
                 Image(systemName: "arrow.triangle.branch")
@@ -140,6 +150,122 @@ struct BranchSidebar: View {
         case .push:
             Task { await vm.push() }
         }
+    }
+}
+
+// MARK: - Detached HEAD Banner
+struct DetachedHEADBanner: View {
+    @EnvironmentObject var vm: AppViewModel
+    @Binding var showNewBranchSheet: Bool
+    @State private var showMovePicker = false
+    @State private var selectedBranchToMove = ""
+
+    private var shortHash: String {
+        vm.commits.first?.shortHash ?? "unknown"
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            // Header
+            HStack(spacing: 6) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 12))
+                    .foregroundColor(Color(hex: "#F5A623"))
+                Text("DETACHED HEAD")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(Color(hex: "#F5A623"))
+                Spacer()
+                Text(shortHash)
+                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .foregroundColor(Color(hex: "#F5A623"))
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color(hex: "#F5A623").opacity(0.15))
+                    .cornerRadius(4)
+            }
+
+            Text("You are viewing commit \(shortHash). You're not on any branch — commits made here won't belong to any branch unless you act.")
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            // Action buttons
+            VStack(spacing: 5) {
+                // 1. Create new branch here
+                Button {
+                    showNewBranchSheet = true
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Create New Branch Here")
+                            .fontWeight(.semibold)
+                    }
+                    .font(.system(size: 11))
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 7)
+                    .background(Color(hex: "#00D4AA"))
+                    .foregroundColor(.black)
+                    .cornerRadius(7)
+                }
+                .buttonStyle(.plain)
+
+                // 2. Move existing branch here
+                if !vm.branches.isEmpty {
+                    Menu {
+                        ForEach(vm.branches) { branch in
+                            Button {
+                                Task { await vm.moveBranchToHEAD(branch.name) }
+                            } label: {
+                                Label(branch.name, systemImage: "arrow.triangle.branch")
+                            }
+                        }
+                    } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: "arrow.triangle.branch")
+                            Text("Move Existing Branch Here")
+                        }
+                        .font(.system(size: 11))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 7)
+                        .background(Color.white.opacity(0.06))
+                        .foregroundColor(Color(hex: "#5AC8FA"))
+                        .cornerRadius(7)
+                        .overlay(RoundedRectangle(cornerRadius: 7).stroke(Color(hex: "#5AC8FA").opacity(0.25), lineWidth: 1))
+                    }
+                    .menuStyle(.borderlessButton)
+                }
+
+                // 3. Return to branch
+                if let branch = vm.branches.first {
+                    Button {
+                        Task { await vm.returnToBranch(branch.name) }
+                    } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: "arrow.uturn.left")
+                            Text("Return to '\(branch.name)'")
+                                .lineLimit(1)
+                        }
+                        .font(.system(size: 11))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 7)
+                        .background(Color.white.opacity(0.04))
+                        .foregroundColor(.secondary)
+                        .cornerRadius(7)
+                        .overlay(RoundedRectangle(cornerRadius: 7).stroke(Color.white.opacity(0.1), lineWidth: 1))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+        .padding(12)
+        .background(Color(hex: "#F5A623").opacity(0.07))
+        .overlay(
+            Rectangle()
+                .fill(Color(hex: "#F5A623").opacity(0.5))
+                .frame(width: 3),
+            alignment: .leading
+        )
+        .overlay(Divider().opacity(0.3), alignment: .bottom)
     }
 }
 

@@ -6,8 +6,18 @@ class GitService: ObservableObject {
     private let runner = ProcessRunner.shared
 
     // MARK: - Repository Info
-    func getCurrentBranch(at path: String) async throws -> String {
-        let out = try await runner.git(["symbolic-ref", "--short", "HEAD"], in: path)
+    /// Returns the current branch name, or "" when in detached HEAD state.
+    func getCurrentBranch(at path: String) async -> String {
+        // symbolic-ref fails in detached HEAD — that's expected, return ""
+        if let out = try? await runner.git(["symbolic-ref", "--short", "HEAD"], in: path) {
+            return out.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        return ""
+    }
+
+    /// Returns the short commit hash of the current HEAD (works in detached HEAD too).
+    func getHEADHash(at path: String) async -> String {
+        let out = (try? await runner.git(["rev-parse", "--short", "HEAD"], in: path)) ?? ""
         return out.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
@@ -47,7 +57,7 @@ class GitService: ObservableObject {
             ["for-each-ref", "--format=\(format)", "refs/heads/"],
             in: path
         )
-        let currentBranch = (try? await getCurrentBranch(at: path)) ?? ""
+        let currentBranch = await getCurrentBranch(at: path)
         var branches: [Branch] = []
 
         for line in out.components(separatedBy: "\n") where !line.isEmpty {
@@ -131,6 +141,11 @@ class GitService: ObservableObject {
 
     func renameBranch(from oldName: String, to newName: String, at path: String) async throws {
         try await runner.git(["branch", "-m", oldName, newName], in: path)
+    }
+
+    /// Force-moves an existing branch pointer to the given ref (e.g. HEAD).
+    func forceMoveBranch(name: String, to ref: String, at path: String) async throws {
+        try await runner.git(["branch", "-f", name, ref], in: path)
     }
 
     func mergeBranch(_ name: String, at path: String) async throws {

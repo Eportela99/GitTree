@@ -136,7 +136,7 @@ class AppViewModel: ObservableObject {
         repo.isGitRepo = isGit
 
         if isGit {
-            repo.currentBranch = (try? await git.getCurrentBranch(at: path)) ?? ""
+            repo.currentBranch = await git.getCurrentBranch(at: path)
             repo.hasRemote = await git.hasRemote(at: path)
             if repo.hasRemote {
                 repo.remoteURL = (try? await git.getRemoteURL(at: path)) ?? ""
@@ -157,6 +157,9 @@ class AppViewModel: ObservableObject {
 
     func refreshAll() async {
         guard let repo = currentRepo else { return }
+        // Always refresh currentBranch first — handles detached HEAD ("" when symbolic-ref fails)
+        let branch = await git.getCurrentBranch(at: repo.path)
+        currentRepo?.currentBranch = branch
         await withTaskGroup(of: Void.self) { group in
             group.addTask { await self.loadBranches(for: repo) }
             group.addTask { await self.loadCommits(for: repo) }
@@ -213,6 +216,44 @@ class AppViewModel: ObservableObject {
         } catch {
             showError(error.localizedDescription)
         }
+    }
+
+    /// Force-moves an existing branch pointer to current HEAD (detached HEAD workflow).
+    func moveBranchToHEAD(_ branchName: String, thenCheckout: Bool = true) async {
+        guard let repo = currentRepo else { return }
+        setLoading(true, message: "Moving '\(branchName)' to current commit...")
+        defer { setLoading(false) }
+        do {
+            // git branch -f <name> HEAD  — repoints the branch to current commit
+            try await git.forceMoveBranch(name: branchName, to: "HEAD", at: repo.path)
+            if thenCheckout {
+                try await git.checkoutBranch(branchName, at: repo.path)
+                currentRepo?.currentBranch = branchName
+            }
+            await refreshAll()
+            showSuccess("'\(branchName)' now points to this commit")
+        } catch {
+            showError(error.localizedDescription)
+        }
+    }
+
+    func returnToBranch(_ name: String) async {
+        guard let repo = currentRepo else { return }
+        setLoading(true, message: "Returning to '\(name)'...")
+        defer { setLoading(false) }
+        do {
+            try await git.checkoutBranch(name, at: repo.path)
+            currentRepo?.currentBranch = name
+            await refreshAll()
+            showSuccess("Back on branch '\(name)'")
+        } catch {
+            showError(error.localizedDescription)
+        }
+    }
+
+    var isDetachedHEAD: Bool {
+        currentRepo?.currentBranch.isEmpty == true ||
+        currentRepo?.currentBranch == "HEAD"
     }
 
     func createBranch(name: String, checkout: Bool = true) async {
@@ -411,15 +452,39 @@ class AppViewModel: ObservableObject {
     }
 
     func push(setUpstream: Bool = false) async {
-        guard let repo = currentRepo, !repo.currentBranch.isEmpty else { return }
-        setLoading(true, message: "Pushing...")
+        guard let repo = currentRepo, !repo.currentBranch.isEmpty, repo.currentBranch != "HEAD" else {
+            showError("You are in detached HEAD state. Create a branch first before pushing.")
+            return
+        }
+        setLoading(true, message: "Pushing \(repo.currentBranch)...")
         defer { setLoading(false) }
+
+        // Check if this branch has a remote tracking branch; if not, set upstream automatically
+        let currentBranchInfo = branches.first { $0.isCurrent }
+        let needsUpstream = setUpstream || (currentBranchInfo?.trackingBranch == nil)
+
         do {
-            try await git.push(at: repo.path, branch: repo.currentBranch, setUpstream: setUpstream)
+            try await git.push(at: repo.path, branch: repo.currentBranch, setUpstream: needsUpstream)
             await refreshAll()
-            showSuccess("Pushed to origin/\(repo.currentBranch)")
+            if needsUpstream {
+                showSuccess("Pushed and set upstream: origin/\(repo.currentBranch)")
+            } else {
+                showSuccess("Pushed to origin/\(repo.currentBranch)")
+            }
         } catch {
-            showError(error.localizedDescription)
+            // If push fails because no upstream, retry with -u
+            let errMsg = error.localizedDescription
+            if errMsg.contains("no upstream") || errMsg.contains("set-upstream") || errMsg.contains("--set-upstream") {
+                do {
+                    try await git.push(at: repo.path, branch: repo.currentBranch, setUpstream: true)
+                    await refreshAll()
+                    showSuccess("Pushed and set upstream: origin/\(repo.currentBranch)")
+                } catch {
+                    showError(error.localizedDescription)
+                }
+            } else {
+                showError(errMsg)
+            }
         }
     }
 

@@ -372,11 +372,42 @@ struct NewBranchSheet: View {
     @State private var branchName = ""
     @State private var checkoutAfter = true
 
+    private var isDetached: Bool { vm.isDetachedHEAD }
+    private var currentCommit: String {
+        vm.commits.first.map { $0.shortHash } ?? ""
+    }
+    private var fromLabel: String {
+        if isDetached { return "detached HEAD (\(currentCommit))" }
+        return vm.currentRepo?.currentBranch ?? ""
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             SheetHeader(title: "New Branch", icon: "arrow.triangle.branch")
 
             VStack(spacing: 16) {
+                // Detached HEAD notice
+                if isDetached {
+                    HStack(spacing: 8) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(Color(hex: "#F5A623"))
+                            .font(.system(size: 13))
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Creating branch from detached HEAD")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(Color(hex: "#F5A623"))
+                            Text("The new branch will start at commit \(currentCommit). This is the recommended way to save your work from detached HEAD.")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .padding(12)
+                    .background(Color(hex: "#F5A623").opacity(0.08))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "#F5A623").opacity(0.25), lineWidth: 1))
+                }
+
                 GTTextField(label: "Branch Name", text: $branchName, placeholder: "feature/my-feature")
 
                 Toggle("Checkout after creating", isOn: $checkoutAfter)
@@ -384,16 +415,22 @@ struct NewBranchSheet: View {
                     .font(.system(size: 13))
                     .foregroundColor(.secondary)
 
-                if let currentBranch = vm.currentRepo?.currentBranch {
-                    Text("Branching from: \(currentBranch)")
+                HStack(spacing: 4) {
+                    Image(systemName: "arrow.triangle.branch")
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary)
+                    Text("Branching from: ")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(fromLabel)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(isDetached ? Color(hex: "#F5A623") : Color(hex: "#00D4AA"))
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(20)
 
-            SheetFooter(confirmLabel: "Create Branch", isEnabled: !branchName.isEmpty) {
+            SheetFooter(confirmLabel: isDetached ? "Save Branch Here" : "Create Branch", isEnabled: !branchName.isEmpty) {
                 Task {
                     await vm.createBranch(name: branchName, checkout: checkoutAfter)
                     dismiss()
@@ -402,7 +439,7 @@ struct NewBranchSheet: View {
                 dismiss()
             }
         }
-        .frame(width: 380)
+        .frame(width: 420)
         .background(Color(hex: "#161B22"))
     }
 }
