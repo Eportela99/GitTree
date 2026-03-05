@@ -1,0 +1,256 @@
+================================================================================
+                        GIT & GITHUB CLI - IMPORTANT COMMANDS
+================================================================================
+
+--------------------------------------------------------------------------------
+GIT SETUP
+--------------------------------------------------------------------------------
+
+git config --global user.name "Your Name"
+    Set your name (shown in commits).
+
+git config --global user.email "you@example.com"
+    Set your email (should match your GitHub email).
+
+git config --list
+    Show all current git configuration.
+
+
+--------------------------------------------------------------------------------
+tHub to your machine.
+    Example: git clone https://github.com/user/repo.git
+
+
+--------------------------------------------------------------------------------
+TRACKING CHANGES
+--------------------------------------------------------------------------------
+
+git status
+    Show which files have been changed, added, or are untracked.
+
+git add <file>
+    Stage a specific file to be committed.
+    Example: git add index.html
+
+git add .
+    Stage ALL changed/new files in the current folder.
+
+git restore --staged <file>
+    Unstage a file (remove from staging without deleting changes).
+
+git diff
+    Show changes that have NOT been staged yet.
+
+git diff --staged
+    Show changes that ARE staged and ready to commit.
+
+
+--------------------------------------------------------------------------------
+COMMITTING
+--------------------------------------------------------------------------------
+
+git commit -m "Your message here"
+    Save staged changes with a short description.
+
+git commit --amend -m "New message"
+    Edit the message of the LAST commit (only if not pushed yet).
+
+git log
+    Show full commit history.
+
+git log --oneline
+    Show commit history in a compact single-line format.
+
+
+--------------------------------------------------------------------------------
+BRANCHES
+--------------------------------------------------------------------------------
+
+git branch
+    List all local branches. The active one has a * next to it.
+
+git branch <name>
+    Create a new branch.
+    Example: git branch feature-login
+
+git checkout <name>
+    Switch to an existing branch.
+
+git checkout -b <name>
+    Create a new branch AND switch to it immediately.
+
+git merge <branch>
+    Merge another branch into the current branch.
+    Example: git merge feature-login
+
+git branch -d <name>
+    Delete a branch (only if already merged).
+
+git branch -D <name>
+    Force delete a branch (even if not merged).
+
+
+--------------------------------------------------------------------------------
+REMOTE REPOSITORIES (GITHUB)
+--------------------------------------------------------------------------------
+
+git remote -v
+    Show connected remote repositories and their URLs.
+
+git remote add origin <url>
+    Connect your local repo to a remote GitHub repository.
+    Example: git remote add origin https://github.com/user/repo.git
+
+git remote remove origin
+    Disconnect the remote named "origin".
+
+
+--------------------------------------------------------------------------------
+PUSHING & PULLING
+--------------------------------------------------------------------------------
+
+git push origin <branch>
+    Upload your commits to GitHub.
+    Example: git push origin main
+
+git push -u origin main
+    Push and set "origin main" as the default (so next time just use git push).
+
+git pull origin <branch>
+    Download and merge latest changes from GitHub.
+    Example: git pull origin main
+
+git fetch
+    Download changes from GitHub but do NOT merge them yet.
+
+
+--------------------------------------------------------------------------------
+UNDOING THINGS
+--------------------------------------------------------------------------------
+
+git restore <file>
+    Discard changes in a file (revert to last committed version).
+
+git revert <commit-hash>
+    Create a new commit that undoes a previous commit (safe, keeps history).
+
+git reset --soft HEAD~1
+    Undo the last commit but KEEP your changes staged.
+
+git reset --hard HEAD~1
+    Undo the last commit and DISCARD all changes. (DANGEROUS - cannot undo)
+
+git stash
+    Temporarily save uncommitted changes so you can work on something else.
+
+git stash pop
+    Restore the last stashed changes.
+
+git stash list
+    Show all saved stashes.
+
+
+--------------------------------------------------------------------------------
+GITHUB CLI (gh) - AUTHENTICATION
+--------------------------------------------------------------------------------
+
+gh auth login
+    Log into your GitHub account interactively.
+
+gh auth status
+    Check if you're logged in and which account is active.
+
+gh auth logout
+    Log out of GitHub.
+
+
+--------------------------------------------------------------------------------
+GITHUB CLI (gh) - REPOSITORIES
+--------------------------------------------------------------------------------
+
+gh repo create <name>
+    Create a new GitHub repository.
+    Useful flags:
+      --public          Make the repo public
+      --private         Make the repo private
+      --source=.        Use the current folder as the source
+      --remote=origin   Set the remote name to "origin"
+      --push            Push the initial commit automatically
+
+    Full example:
+    gh repo create my-project --public --source=. --remote=origin --push
+
+gh repo list
+    List all your GitHub repositories.
+
+gh repo view
+    View details of the current repo in the terminal.
+
+gh repo view --web
+    Open the current repo in your browser.
+
+gh repo clone <repo>
+    Clone one of your GitHub repos.
+    Example: gh repo clone my-project
+
+gh repo delete <repo>
+    Delete a repository (will ask for confirmation).
+
+
+--------------------------------------------------------------------------------
+GITHUB CLI (gh) - PULL REQUESTS
+--------------------------------------------------------------------------------
+
+gh pr create
+    Create a pull request interactively.
+
+gh pr create --title "My PR" --body "Description here"
+    Create a pull request with a title and description.
+
+gh pr list
+    List open pull requests in the current repo.
+
+gh pr view <number>
+    View details of a specific pull request.
+
+gh pr merge <number>
+    Merge a pull request.
+
+gh pr close <number>
+    Close a pull request without merging.
+
+
+--------------------------------------------------------------------------------
+GITHUB CLI (gh) - ISSUES
+--------------------------------------------------------------------------------
+
+gh issue create --title "Bug found" --body "Description"
+    Create a new issue.
+
+gh issue list
+    List open issues in the current repo.
+
+gh issue view <number>
+    View a specific issue.
+
+gh issue close <number>
+    Close an issue.
+
+
+--------------------------------------------------------------------------------
+TYPICAL WORKFLOW (from scratch to GitHub)
+--------------------------------------------------------------------------------
+
+1. cd into your project folder
+2. git init
+3. git add .
+4. git commit -m "Initial commit"
+5. gh repo create <name> --public --source=. --remote=origin --push
+
+Daily workflow after that:
+1. Make changes to your files
+2. git add .
+3. git commit -m "Describe what you changed"
+4. git push
+
+================================================================================

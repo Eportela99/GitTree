@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		GT000040 /* GitTreeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000020 /* GitTreeApp.swift */; };
+		GT000041 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000021 /* Models.swift */; };
+		GT000042 /* ProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000022 /* ProcessRunner.swift */; };
+		GT000043 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000023 /* GitService.swift */; };
+		GT000044 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000024 /* GitHubService.swift */; };
+		GT000045 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000025 /* AppViewModel.swift */; };
+		GT000046 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000026 /* ContentView.swift */; };
+		GT000047 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000027 /* HomeView.swift */; };
+		GT000048 /* LocalRepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000028 /* LocalRepositoryView.swift */; };
+		GT000049 /* BranchSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000029 /* BranchSidebar.swift */; };
+		GT00004A /* CommitHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002A /* CommitHistoryView.swift */; };
+		GT00004B /* ChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002B /* ChangesView.swift */; };
+		GT00004C /* CommitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002C /* CommitDetailView.swift */; };
+		GT00004D /* DiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002D /* DiffView.swift */; };
+		GT00004E /* StashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002E /* StashView.swift */; };
+		GT00004F /* GitHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT00002F /* GitHubView.swift */; };
+		GT000050 /* RepoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GT000030 /* RepoListView.swift */; };
+		GT000060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = GT000032 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		GT00000E /* GitTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		GT000020 /* GitTreeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitTreeApp.swift; sourceTree = "<group>"; };
+		GT000021 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		GT000022 /* ProcessRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessRunner.swift; sourceTree = "<group>"; };
+		GT000023 /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
+		GT000024 /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
+		GT000025 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		GT000026 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		GT000027 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		GT000028 /* LocalRepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepositoryView.swift; sourceTree = "<group>"; };
+		GT000029 /* BranchSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchSidebar.swift; sourceTree = "<group>"; };
+		GT00002A /* CommitHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitHistoryView.swift; sourceTree = "<group>"; };
+		GT00002B /* ChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangesView.swift; sourceTree = "<group>"; };
+		GT00002C /* CommitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailView.swift; sourceTree = "<group>"; };
+		GT00002D /* DiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffView.swift; sourceTree = "<group>"; };
+		GT00002E /* StashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StashView.swift; sourceTree = "<group>"; };
+		GT00002F /* GitHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubView.swift; sourceTree = "<group>"; };
+		GT000030 /* RepoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListView.swift; sourceTree = "<group>"; };
+		GT000032 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		GT000033 /* GitTree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitTree.entitlements; sourceTree = "<group>"; };
+		GT000034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		GT000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		GT00000C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				GT00000E /* GitTree.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		GT00000F /* GitTree */ = {
+			isa = PBXGroup;
+			children = (
+				GT000014 /* App */,
+				GT000015 /* Models */,
+				GT000016 /* Services */,
+				GT000017 /* ViewModels */,
+				GT000018 /* Views */,
+				GT000032 /* Assets.xcassets */,
+				GT000033 /* GitTree.entitlements */,
+				GT000034 /* Info.plist */,
+			);
+			path = GitTree;
+			sourceTree = "<group>";
+		};
+		GT000010 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				GT00000F /* GitTree */,
+				GT00000C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		GT000014 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				GT000020 /* GitTreeApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		GT000015 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				GT000021 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		GT000016 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				GT000022 /* ProcessRunner.swift */,
+				GT000023 /* GitService.swift */,
+				GT000024 /* GitHubService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		GT000017 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				GT000025 /* AppViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		GT000018 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				GT000026 /* ContentView.swift */,
+				GT000027 /* HomeView.swift */,
+				GT000019 /* LocalView */,
+				GT00001A /* GitHubView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		GT000019 /* LocalView */ = {
+			isa = PBXGroup;
+			children = (
+				GT000028 /* LocalRepositoryView.swift */,
+				GT000029 /* BranchSidebar.swift */,
+				GT00002A /* CommitHistoryView.swift */,
+				GT00002B /* ChangesView.swift */,
+				GT00002C /* CommitDetailView.swift */,
+				GT00002D /* DiffView.swift */,
+				GT00002E /* StashView.swift */,
+			);
+			path = LocalView;
+			sourceTree = "<group>";
+		};
+		GT00001A /* GitHubView */ = {
+			isa = PBXGroup;
+			children = (
+				GT00002F /* GitHubView.swift */,
+				GT000030 /* RepoListView.swift */,
+			);
+			path = GitHubView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		GT000011 /* GitTree */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = GT000007 /* Build configuration list for PBXNativeTarget "GitTree" */;
+			buildPhases = (
+				GT000002 /* Sources */,
+				GT000003 /* Resources */,
+				GT000004 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GitTree;
+			productName = GitTree;
+			productReference = GT00000E /* GitTree.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		GT000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					GT000011 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = GT000006 /* Build configuration list for PBXProject "GitTree" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = GT000010 /* Main */;
+			productRefGroup = GT00000C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				GT000011 /* GitTree */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		GT000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				GT000060 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		GT000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				GT000040 /* GitTreeApp.swift in Sources */,
+				GT000041 /* Models.swift in Sources */,
+				GT000042 /* ProcessRunner.swift in Sources */,
+				GT000043 /* GitService.swift in Sources */,
+				GT000044 /* GitHubService.swift in Sources */,
+				GT000045 /* AppViewModel.swift in Sources */,
+				GT000046 /* ContentView.swift in Sources */,
+				GT000047 /* HomeView.swift in Sources */,
+				GT000048 /* LocalRepositoryView.swift in Sources */,
+				GT000049 /* BranchSidebar.swift in Sources */,
+				GT00004A /* CommitHistoryView.swift in Sources */,
+				GT00004B /* ChangesView.swift in Sources */,
+				GT00004C /* CommitDetailView.swift in Sources */,
+				GT00004D /* DiffView.swift in Sources */,
+				GT00004E /* StashView.swift in Sources */,
+				GT00004F /* GitHubView.swift in Sources */,
+				GT000050 /* RepoListView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		GT000008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_EXCEPTION = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		GT000009 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_EXCEPTION = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		GT00000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GitTree/GitTree.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GitTree/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Enrique L. Portela";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elportela.GitTree;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		GT00000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GitTree/GitTree.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GitTree/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2025 Enrique L. Portela";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elportela.GitTree;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		GT000006 /* Build configuration list for PBXProject "GitTree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GT000008 /* Debug */,
+				GT000009 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		GT000007 /* Build configuration list for PBXNativeTarget "GitTree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GT00000A /* Debug */,
+				GT00000B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = GT000001 /* Project object */;
+}
