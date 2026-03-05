@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>GitTree</title>
+    <welcome file="Welcome.rtf" mime-type="text/rtf"/>
+    <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
+    <choices-outline>
+        <line choice="default">
+            <line choice="com.elportela.GitTree"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="com.elportela.GitTree" visible="false">
+        <pkg-ref id="com.elportela.GitTree"/>
+    </choice>
+    <pkg-ref id="com.elportela.GitTree" version="1.0" onConclusion="none">GitTree_component.pkg</pkg-ref>
+</installer-gui-script>
